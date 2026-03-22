@@ -20,7 +20,7 @@ jobs:
           # SYNC_TOKEN   → PAT from YOUR account (added as secret in original repo)
           # TARGET_REPO  → your GitHub username/repo-name  e.g. "yourname/nexus-chat"
           SYNC_TOKEN: ${{ secrets.SYNC_TOKEN }}
-          TARGET_REPO: YOUR_GITHUB_USERNAME/YOUR_REPO_NAME   # ← change this
+          TARGET_REPO: ajoebert/translationapp
         run: |
           git remote add target https://x-access-token:${SYNC_TOKEN}@github.com/${TARGET_REPO}.git
 
