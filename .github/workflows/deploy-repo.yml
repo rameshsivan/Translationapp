@@ -28,4 +28,4 @@ jobs:
           git remote add target https://x-access-token:${SYNC_TOKEN}@github.com/${TARGET_REPO}.git
 
           # Force-push the branch that triggered this workflow
-          git push target HEAD:refs/heads/${main} --force
+          git push target HEAD:refs/heads/main --force
