@@ -23,9 +23,9 @@ jobs:
           # SYNC_TOKEN   → PAT from YOUR account (added as secret in original repo)
           # TARGET_REPO  → your GitHub username/repo-name  e.g. "yourname/nexus-chat"
           SYNC_TOKEN: ${{ secrets.SYNC_TOKEN }}
-          TARGET_REPO: ajoebert/translationapp
+          TARGET_REPO: "ajoebert/translationapp"
         run: |
           git remote add target https://x-access-token:${SYNC_TOKEN}@github.com/${TARGET_REPO}.git
 
           # Force-push the branch that triggered this workflow
-          git push target HEAD:main --force
+          git push target HEAD:refs/heads/${main} --force
