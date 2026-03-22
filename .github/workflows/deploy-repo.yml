@@ -3,7 +3,7 @@ name: Sync to Vercel Repo
 on:
   push:
     branches:
-      - main   # change if needed
+      - main
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
@@ -13,10 +13,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout original repo (full history)
+      - name: Checkout original repo
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
+      - name: Debug repo access (IMPORTANT)
+        env:
+          SYNC_TOKEN: ${{ secrets.SYNC_TOKEN }}
+          TARGET_REPO: ajoebert/translationapp
+        run: |
+          echo "Checking access to target repo..."
+          git ls-remote https://x-access-token:${SYNC_TOKEN}@github.com/${TARGET_REPO}.git
 
       - name: Push to target repo
         env:
@@ -26,6 +34,7 @@ jobs:
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
 
+          git remote remove target || true
           git remote add target https://x-access-token:${SYNC_TOKEN}@github.com/${TARGET_REPO}.git
 
           git push target HEAD:main --force
