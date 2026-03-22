@@ -1,0 +1,28 @@
+name: Sync to Vercel Repo
+
+on:
+  push:
+    branches:
+      - main        # Change this if your default branch is "master" or another name
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout original repo (full history)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # Full history needed for a clean push
+
+      - name: Push to target repo
+        env:
+          # SYNC_TOKEN   → PAT from YOUR account (added as secret in original repo)
+          # TARGET_REPO  → your GitHub username/repo-name  e.g. "yourname/nexus-chat"
+          SYNC_TOKEN: ${{ secrets.SYNC_TOKEN }}
+          TARGET_REPO: YOUR_GITHUB_USERNAME/YOUR_REPO_NAME   # ← change this
+        run: |
+          git remote add target https://x-access-token:${SYNC_TOKEN}@github.com/${TARGET_REPO}.git
+
+          # Force-push the branch that triggered this workflow
+          git push target HEAD:${{ github.ref_name }} --force
