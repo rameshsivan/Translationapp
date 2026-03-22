@@ -18,12 +18,12 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Debug repo access (IMPORTANT)
+      - name: Debug repo access
         env:
           SYNC_TOKEN: ${{ secrets.SYNC_TOKEN }}
           TARGET_REPO: ajoebert/translationapp
         run: |
-          echo "Checking access to target repo..."
+          echo "Checking access..."
           git ls-remote https://x-access-token:${SYNC_TOKEN}@github.com/${TARGET_REPO}.git
 
       - name: Push to target repo
