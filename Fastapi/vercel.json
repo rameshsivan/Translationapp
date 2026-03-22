@@ -1,0 +1,16 @@
+
+{
+"builds": 
+  [{
+    "src":"Fastapi/main.py",
+    "use":"@vercal/python3"
+}],
+
+"routes":[
+    {
+        "src":"/(.*)",
+        "dest":"Fastapi/main.py"
+    }
+]
+
+  }
